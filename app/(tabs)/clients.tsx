@@ -3,13 +3,12 @@ import { router } from 'expo-router';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 
-export default function DashboardScreen() {
+export default function ClientsScreen() {
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title">Folio MX</ThemedText>
-      <ThemedText>Resumen del taller</ThemedText>
-      <ThemedText type="link" onPress={() => router.push('/note/new')}>
-        Nueva Nota
+      <ThemedText type="title">Clientes</ThemedText>
+      <ThemedText type="link" onPress={() => router.push('/client/new')}>
+        Registrar Cliente
       </ThemedText>
     </ThemedView>
   );
@@ -18,8 +17,6 @@ export default function DashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     padding: 20,
     gap: 16,
   },
