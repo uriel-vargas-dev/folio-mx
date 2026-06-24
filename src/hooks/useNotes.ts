@@ -94,15 +94,19 @@ export function useNotes() {
 
   const cancelNote = useCallback(
     async (noteId: string, costInversion: number) => {
-      await noteService.cancel(noteId, costInversion);
-
       const note = notes.find((n) => n.id === noteId) || selectedNote;
       if (!note) return;
 
-      const devolucion = note.anticipo - costInversion;
+      const resultado = note.anticipo - costInversion;
+      const nuevoSaldo = resultado < 0 ? Math.abs(resultado) : 0;
+
+      await noteService.update(noteId, {
+        status: 'CANCELADA',
+        saldoPendiente: nuevoSaldo,
+      });
       updateNote(noteId, {
         status: 'CANCELADA',
-        saldoPendiente: devolucion < 0 ? Math.abs(devolucion) : 0,
+        saldoPendiente: nuevoSaldo,
       });
     },
     [notes, selectedNote, updateNote],
